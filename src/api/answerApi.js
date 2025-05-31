@@ -1,4 +1,6 @@
 import apiClient from './apiClient';
 
-export const submitQuizAnswers = (quizId, answers) =>
-  apiClient.post(`/answers/${quizId}`, { answers });
+export const submitQuizAnswers =  async (quizId, answers) => {
+  const res = await apiClient.post(`/answers/${quizId}`, { answers });
+  return res.data;
+};

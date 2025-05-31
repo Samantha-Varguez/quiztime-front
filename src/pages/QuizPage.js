@@ -49,8 +49,10 @@ useEffect(() => {
       }));
       const result = await submitQuizAnswers(id, payload);
       alert(`¡Quiz enviado! Tu puntuación es: ${result.score}`);
+      console.log('Respuesta del backend:', result);
       setSubmitted(true);
     } catch (err) {
+      console.error('Error al enviar respuestas:', err.message);
       setError('Error al enviar respuestas');
     }
   };

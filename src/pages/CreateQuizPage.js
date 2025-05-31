@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateQuizPage = () => {
   const [quizData, setQuizData] = useState({ title: '', description: '' });
-  const [quizId, setQuizId] = useState(null);
+  const [quizId] = useState(null);
   const [questionText, setQuestionText] = useState('');
   const [options, setOptions] = useState([{ text: '', isCorrect: false }]);
   const [questions, setQuestions] = useState([]);
@@ -26,10 +26,11 @@ const CreateQuizPage = () => {
       console.log('Quiz response:', newQuiz);
       navigate(`/quizzes/${newQuiz._id}/edit`);
       console.log('Set quiz ID:', newQuiz._id);
-      {quizId && <p><strong>Quiz ID:</strong> {quizId}</p>}
+      
 
       setSuccess('Quiz creado!');
     } catch (err) {
+      console.log("Fallo al crear quiz", err.message);
       setError('Fallo al crear quiz.');
     }
   };
@@ -75,6 +76,7 @@ const CreateQuizPage = () => {
       setSuccess('Pregunta añadida!');
       setError('');
     } catch (err) {
+      console.log("Fallo al agregar pregunta", err.message);
       setError('Fallo al agregar pregunta.');
     }
   };
@@ -88,11 +90,11 @@ const CreateQuizPage = () => {
       {quizId === null && (
         <form onSubmit={handleCreateQuiz}>
           <div className="form-group">
-            <label>Title:</label>
+            <label htmlFor="title">Title:</label>
             <input type="text" name="title" className="form-control" onChange={handleQuizChange} required />
           </div>
           <div className="form-group mt-3">
-            <label>Description:</label>
+            <label htmlFor="description">Description:</label>
             <textarea name="description" className="form-control" onChange={handleQuizChange} />
           </div>
           <button type="submit" className="btn btn-primary mt-3">Crea Quiz</button>
@@ -103,7 +105,7 @@ const CreateQuizPage = () => {
           <h4>Agrega pregunta</h4>
           <form onSubmit={handleAddQuestion}>
             <div className="form-group">
-              <label>Texto de pregunta:</label>
+              <label htmlFor="form-control">Texto de pregunta:</label>
               <input
                 type="text"
                 className="form-control"
@@ -114,8 +116,8 @@ const CreateQuizPage = () => {
             </div>
 
             <h6 className="mt-3">Opciones:</h6>
-            {options.map((opt, index) => (
-              <div key={index} className="mb-2">
+            {options.map((opt) => (
+              <div key={opt.text} className="mb-2">
                 <input
                   type="text"
                   className="form-control mb-1"
@@ -131,7 +133,7 @@ const CreateQuizPage = () => {
                     checked={opt.isCorrect}
                     onChange={(e) => handleOptionChange(index, 'isCorrect', e)}
                   />
-                  <label className="form-check-label">Respuesta correcta</label>
+                  <label htmlFor="form-check-label" className="form-check-label">Respuesta correcta</label>
                 </div>
               </div>
             ))}
@@ -145,8 +147,8 @@ const CreateQuizPage = () => {
           <hr />
           <h5 className="mt-4">Preguntas añadidas:</h5>
           <ul className="list-group mt-2">
-            {questions.map((q, idx) => (
-              <li key={idx} className="list-group-item">{q.text}</li>
+            {questions.map((q) => (
+              <li key={q._id} className="list-group-item">{q.text}</li>
             ))}
           </ul>
         </div> 

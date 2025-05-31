@@ -19,6 +19,7 @@ const LoginPage = () => {
       alert('Login exitoso');
       navigate('/');
     } catch (err) {
+      console.log("Credenciales invalidas", err.message);
       setError('Credenciales inválidas');
     }
   };
@@ -29,11 +30,11 @@ const LoginPage = () => {
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input type="email" name="email" className="form-control" onChange={handleChange} required />
         </div>
         <div className="form-group mt-3">
-          <label>Contraseña:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input type="password" name="password" className="form-control" onChange={handleChange} required />
         </div>
         <button type="submit" className="btn btn-primary mt-3">Entrar</button>

@@ -19,7 +19,9 @@ const RegisterPage = () => {
       alert('Registro exitoso');
       navigate('/');
     } catch (err) {
+      console.error('Error al registrar. Verifica los datos:', err.message);
       setError('Error al registrar. Verifica los datos.');
+
     }
   };
 
@@ -29,15 +31,15 @@ const RegisterPage = () => {
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Nombre de usuario:</label>
+          <label htmlFor="username">Nombre de usuario:</label>
           <input type="text" name="username" className="form-control" onChange={handleChange} required />
         </div>
         <div className="form-group mt-3">
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input type="email" name="email" className="form-control" onChange={handleChange} required />
         </div>
         <div className="form-group mt-3">
-          <label>Contraseña:</label>
+          <label htmlFor="password">Contraseña:</label>
           <input type="password" name="password" className="form-control" onChange={handleChange} required />
         </div>
         <button type="submit" className="btn btn-success mt-3">Registrarse</button>

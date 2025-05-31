@@ -8,4 +8,7 @@ export const addQuestion = async (data) => {
     const response = await apiClient.get(`/questions?quizId=${quizId}`);
     return response.data; // ✅ make sure backend sends array here
   };
+  export const deleteQuestion = async (id) => {
+    return await apiClient.delete(`/questions/${id}`);
+  };
   

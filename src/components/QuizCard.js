@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { deleteQuiz } from '../api/quizApi';
+import PropTypes from 'prop-types';
 
 const QuizCard = ({ quiz, onDelete }) => {
   const handleDelete = async () => {
@@ -23,6 +24,15 @@ const QuizCard = ({ quiz, onDelete }) => {
       </div>
     </div>
   );
+};
+
+QuizCard.propTypes = {
+  quiz: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default QuizCard;
